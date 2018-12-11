@@ -1,10 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import 'reset-css'
-import './styles/index.scss'
-import App from './App'
-import * as serviceWorker from './serviceWorker'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { HashRouter, Route } from 'react-router-dom';
 
-ReactDOM.render(<App />, document.getElementById('root'))
+import 'reset-css';
+import './styles/index.scss';
+import App from './components/App';
+import * as serviceWorker from './serviceWorker';
 
-console.log('hello')
+ReactDOM.render(
+  <HashRouter>
+    <Route path="/" component={App} />
+  </HashRouter>,
+  document.getElementById('root')
+);
+
+console.log('hello');

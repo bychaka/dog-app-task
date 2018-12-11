@@ -13,5 +13,3 @@ ReactDOM.render(
   </HashRouter>,
   document.getElementById('root')
 );
-
-console.log('hello');

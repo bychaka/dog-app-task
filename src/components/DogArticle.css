@@ -1,0 +1,20 @@
+/**
+ *
+ * DogArticle.css
+ *
+ */
+
+ .dog-article{
+     height: 100px;
+     width: 70px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 15px;
+     background-color: #5bbec1;
+ }
+
+ .dog-name{
+     font-size: 25px;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }

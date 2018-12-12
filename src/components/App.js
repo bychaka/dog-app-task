@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import DogsList from './DogsList';
-import DogArticle from './DogArticle';
 
 const LIST_ALL_DOGS = 'https://dog.ceo/api/breeds/list/all';
 
 class App extends Component {
-  fetchDogList() {
+  fetchDogsList() {
     return fetch(LIST_ALL_DOGS)
       .then(response => response.json())
       .then(function(data) {
-        // let dogList = Object(data.message);
-        // return dogList;
-
-        Object.keys(data.message).forEach(key => {
-          let value = data.message[key];
-          console.log(`${key}: ${value}`);
-        });
+        return data.message;
       });
+  }
+
+  getDogsList() {
+    const allDogs = this.fetchDogsList().then(data => {
+      // DogsReducer.setState(data);
+    });
+    console.info(allDogs);
+    return allDogs;
   }
 
   // for (let [key, value] of iterable) {
@@ -25,13 +26,10 @@ class App extends Component {
   // }
 
   render() {
-    // console.log(this.fetchDogList());
     return (
       <div>
         <h1 className="title">My React 2 App!</h1>
-        <ul className="dog-list">
-          <DogsList data={this.fetchDogList()} />
-        </ul>
+        <DogsList data={this.getDogsList()} />
       </div>
     );
   }
@@ -53,13 +51,6 @@ class App extends Component {
   //     document.querySelector('.dog-list').appendChild(dogBreed);
   //     // console.log(`${breed} : ${dogList[breed]}`);
   //   }
-  // }
-  // getDog(object) {
-  //   let array = [];
-  //   for (let key in object) {
-  //     array.push(key);
-  //   }
-  //   console.info(array);
   // }
 }
 

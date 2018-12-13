@@ -7,12 +7,19 @@
 
 .title {
   text-align: center;
+  color: #333;
+  font-size: 36px;
 }
 
-.dog-list {
-  padding: 40px;
+.logo {
+  width: 140px;
+  margin-bottom: 15px;
 }
 
-.dog-list-item{
-  padding-left: 15px;
+.header{
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

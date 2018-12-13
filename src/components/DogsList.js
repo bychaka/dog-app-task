@@ -1,44 +1,71 @@
 import React, { Component } from 'react';
 import DogArticle from './DogArticle';
 import './DogList.css';
+import * as http from 'axios';
+import { connect } from 'react-redux';
+import { setDogsBreeds } from '../actions/DogsPageActions';
+
+const DOG_LIST_URL = 'https://dog.ceo/api/breeds/list/all';
 
 class DogsList extends Component {
-  renderDogArticles() {
-    for (let n = 25; n < 25; n++) {}
-  }
+  onLoadDogs = () => {
+    http
+      .get(DOG_LIST_URL)
+      .then(response => {
+        const fetched = response.data.message;
+        const keys = Object.getOwnPropertyNames(fetched);
+
+        const allBreeds = [];
+        keys.forEach(breed => {
+          if (Array.isArray(fetched[breed]) && fetched[breed].length) {
+            fetched[breed].forEach(subBreed => {
+              allBreeds.push(`${subBreed} ${breed}`);
+            });
+          } else {
+            allBreeds.push(breed);
+          }
+        });
+
+        const dogs = allBreeds.map((value, index) => {
+          return { id: index, breedName: value };
+        });
+
+        this.props.setDogsBreeds({ dogs });
+      })
+      .catch(err => {
+        console.log('Error from onLoadDogs', err);
+      });
+  };
+
   render() {
-    const { data } = this.props;
-    const DogsList = () => {};
+    this.onLoadDogs();
+    const dogsBreeds = this.props.dogs;
+
     return (
       <div className="dog-list">
-        <DogArticle />
-        <DogArticle />
-        <DogArticle />
-        <DogArticle />
-        <DogArticle />
+        {/* <button type="button" onClick={this.onLoadDogs}>
+          Load Fucking Dogs!
+        </button> */}
+        {dogsBreeds.map(breed => (
+          <DogArticle key={breed.id} data={breed.breedName} />
+          // <p key={breed.id}>{breed.breedName}</p>
+        ))}
       </div>
     );
   }
 }
 
-export default DogsList;
+const mapStateToProps = store => {
+  return {
+    dogs: store.dogsList.dogs,
+  };
+};
 
-// getListDogs(dogList) {
-//   for (let breed in dogList) {
-//     // порода в списке
-//     let dogBreed = document.createElement('li');
-//     dogBreed.innerHTML = breed;
-//     if (dogList[breed] !== 0) {
-//       let ul = document.createElement('ul');
-//       dogList[breed].forEach(element => {
-//         let breedItem = document.createElement('li');
-//         breedItem.classList.add('dog-list-item');
-//         breedItem.innerHTML = `${element} ${breed}`;
-//         ul.appendChild(breedItem);
-//       });
-//       dogBreed.appendChild(ul);
-//     }
-//     document.querySelector('.dog-list').appendChild(dogBreed);
-//     // console.log(`${breed} : ${dogList[breed]}`);
-//   }
-// }
+const mapDispatchToProps = dispatch => ({
+  setDogsBreeds: dogsBreeds => dispatch(setDogsBreeds(dogsBreeds)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DogsList);

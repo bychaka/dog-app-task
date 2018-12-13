@@ -1,7 +1,6 @@
-export const initialState = {
-  breed: 'Unknown Breed',
-};
+import { combineReducers } from 'redux';
+import { dogsListReducer } from './dogsListReducer';
 
-export function rootReducer(state = initialState) {
-  return state;
-}
+export const rootReducer = combineReducers({
+  dogsList: dogsListReducer,
+});

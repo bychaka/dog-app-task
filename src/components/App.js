@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import './App.css';
+import { HashRouter, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../store/configureStore';
+
 import DogsList from './DogsList';
+import DogPage from './DogPage';
+import NotFound from './NotFound';
+
+// const history = createBrowserHistory();
 
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
-        <div className="header">
-          <img className="logo" src="https://dog.ceo/img/dog-api-logo.svg" />
-          <h1 className="title">Dog API application by Aliaksandr Bychak</h1>
-        </div>
-        <DogsList />
-      </React.Fragment>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" component={DogsList} exact />
+            <Route path="/breed/:breed" component={DogPage} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

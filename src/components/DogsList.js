@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import DogArticle from './DogArticle';
 import './DogList.css';
 import * as http from 'axios';
 import { connect } from 'react-redux';
 import { setDogsBreeds } from '../actions/DogsPageActions';
+
+import Header from './Header';
 
 const DOG_LIST_URL = 'https://dog.ceo/api/breeds/list/all';
 
@@ -16,16 +19,17 @@ class DogsList extends Component {
         const keys = Object.getOwnPropertyNames(fetched);
 
         const allBreeds = [];
-        // const breedsForImages = [];
+        const breedsForImages = [];
         keys.forEach(breed => {
           if (Array.isArray(fetched[breed]) && fetched[breed].length) {
             fetched[breed].forEach(subBreed => {
               allBreeds.push(`${subBreed} ${breed}`);
               // breedsForImages.push(`${breed}-${subBreed}`);
+              breedsForImages.push(breed);
             });
           } else {
             allBreeds.push(breed);
-            // breedsForImages.push(breed);
+            breedsForImages.push(breed);
           }
         });
 
@@ -33,15 +37,13 @@ class DogsList extends Component {
           return {
             id: index,
             breedName: value,
-            breedImageUrl: `https://dog.ceo/api/breed/${value}/images/random`,
+            breedUrl: breedsForImages[index],
+            breedImageUrl: `https://dog.ceo/api/breed/${
+              breedsForImages[index]
+            }/images/random`,
           };
         });
 
-        // const dogsForImages = breedsForImages.map((value, index) => {
-        //   return { id: index, breedNameImage: value };
-        // });
-
-        // this.props.setDogsBreedsForImages({ dogsForImages });
         this.props.setDogsBreeds({ dogs });
       })
       .catch(err => {
@@ -54,15 +56,14 @@ class DogsList extends Component {
     const dogsBreeds = this.props.dogs;
 
     return (
-      <div className="dog-list">
-        {/* <button type="button" onClick={this.onLoadDogs}>
-          Load Fucking Dogs!
-        </button> */}
-        {dogsBreeds.map(breed => (
-          <DogArticle key={breed.id} data={breed} />
-          // <p key={breed.id}>{breed.breedName}</p>
-        ))}
-      </div>
+      <React.Fragment>
+        <Header />
+        <div className="dog-list">
+          {dogsBreeds.map(breed => (
+            <DogArticle key={breed.id} data={breed} />
+          ))}
+        </div>
+      </React.Fragment>
     );
   }
 }

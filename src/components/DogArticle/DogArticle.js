@@ -21,7 +21,7 @@ const styles = {
     objectFit: 'cover',
   },
   card_title: {
-    textTransform: 'uppercase',
+    textTransform: 'capitalize',
   },
 };
 

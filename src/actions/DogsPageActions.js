@@ -5,9 +5,9 @@ export const setDogsBreeds = breeds => {
   };
 };
 
-// export const setDogId = id => {
-//   return {
-//     type: 'SET_DOG_ID',
-//     payload: id,
-//   };
-// };
+export const setBreedImages = images => {
+  return {
+    type: 'SET_BREED_IMAGES',
+    payload: images,
+  };
+};

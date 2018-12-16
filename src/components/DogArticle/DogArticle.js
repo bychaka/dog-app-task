@@ -5,13 +5,16 @@ import './DogArticle.scss';
 
 class DogArticle extends Component {
   render() {
-    const breedName = this.props.data.breedUrl;
+    const breedName = this.props.data.breed;
     // const breedImageUrl = this.props.data.breedImageUrl;
     return (
       <div className="dog-article">
         <p className="dog-name">{breedName}</p>
         {/* <p className="dog-name">{breedImageUrl}</p> */}
-        <Link to={`/breed/${breedName}`} className="dog-article-link">
+        <Link
+          to={{ pathname: `/breeds/${breedName}` }}
+          className="dog-article-link"
+        >
           view more
         </Link>
       </div>

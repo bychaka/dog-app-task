@@ -12,14 +12,13 @@
 }
 
 .logo {
-  width: 140px;
-  margin-bottom: 15px;
+  width: 50px;
+  margin-right: 150px;
 }
 
 .header{
   padding: 25px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

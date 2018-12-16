@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Slider from 'react-slick';
 import './DogPage.css';
 
 import Loader from '../Loader/Loader';
@@ -23,25 +24,35 @@ class DogPage extends Component {
       });
   }
   render() {
+    const settings = {
+      fade: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 1500,
+    };
+
     if (this.isLoading) {
       return <Loader />;
     }
-    const location = this.props.location.pathname;
-    const urlImage = `https://dog.ceo/api/${location}/images/random`;
-    console.log(location, urlImage);
     return (
       <div className="dog-page">
-        {/* <img
-          className="dog-page-image"
-          alt="this is image of dog"
-          src="https://via.placeholder.com/500"
-        /> */}
-        <p className="dog-name">{this.props.images.breed}</p>
-        {this.props.images.images.map((imageUrl, key) => (
-          <div key={key}>
-            <img src={imageUrl} alt={this.props.images.breed} />
-          </div>
-        ))}
+        <p className="breed-name">{this.props.images.breed}</p>
+        <div className="dog-slider">
+          <Slider {...settings}>
+            {this.props.images.images.map((imageUrl, key) => (
+              <div key={key} className="slider-item">
+                <img
+                  className="slider-image"
+                  src={imageUrl}
+                  alt={this.props.images.breed}
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
     );
   }

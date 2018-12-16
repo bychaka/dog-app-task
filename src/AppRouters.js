@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import DogsList from './components/DogList/DogsList';
 import DogPage from './components/DogPage/DogPage';
@@ -16,5 +16,3 @@ export class AppRouter extends Component {
     );
   }
 }
-
-// export default AppRouter;

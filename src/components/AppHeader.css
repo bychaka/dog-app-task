@@ -8,17 +8,17 @@
 .title {
   text-align: center;
   color: #333;
-  font-size: 36px;
+  font-size: 30px;
 }
 
 .logo {
   width: 50px;
-  margin-right: 150px;
 }
 
 .header{
-  padding: 25px;
+  background-color: #dbe8ff;
+  padding: 25px 35px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
